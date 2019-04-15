@@ -26,4 +26,4 @@ class Comment(models.Model):
     like = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.sentence + " - " + self.name
+        return self.comment + " - " + self.name

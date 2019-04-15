@@ -81,7 +81,7 @@ class Sentence extends React.Component {
   }
 
   render() {
-    const { } = this.props;
+    const { classes } = this.props;
     const { isLoaded, name, new_sentence, sentences, loading_submit } = this.state;
 
     return (

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, Http404
 from rest_framework import generics, permissions, viewsets, mixins
 from rest_framework.decorators import action
@@ -33,9 +33,20 @@ class PanelViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+    def retrieve(self, request, pk=None):
+        panel = Panel.objects.filter(pk=pk).first()
+        serializer = self.serializer_class(panel)
+        return Response(serializer.data)
+
 class CommentViewSiet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+    def retrieve(self, request, pk=None):
+        queryset = Comment.objects.filter(panel=pk)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
     def perform_create(self, serializer):
+        # panel = Panel.objects.filter(pk=self.request.data['pk'])
         serializer.save()

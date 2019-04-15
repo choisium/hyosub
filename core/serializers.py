@@ -11,7 +11,7 @@ class SentenceSerializer(serializers.ModelSerializer):
 class PanelSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Panel
-		fields = ('image', 'date', 'description', 'like', 'comments')
+		fields = ('image', 'date', 'description', 'like', 'comments', 'pk')
 
 class CommentSerializer(serializers.ModelSerializer):
 	class Meta:
