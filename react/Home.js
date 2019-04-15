@@ -14,7 +14,7 @@ const styles = theme => ({
     fontSize: 28,
     fontWeight: 100,
     color: '#000000',
-    transform: 'translateY(-4px)'
+    // transform: 'translateY(-4px)'
   },
   icon: {
     fontSize: 'xx-large',

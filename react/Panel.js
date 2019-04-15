@@ -57,6 +57,7 @@ class Panel extends React.Component {
 
   componentDidMount() {
     this.fetchPanels();
+    if(this.state.selected_now != null) {this.fetchComments();}
   }
 
   fetchPanels() {
