@@ -23,3 +23,19 @@ class SentenceViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+class PanelViewSet(viewsets.ModelViewSet):
+    queryset = Panel.objects.all()
+    serializer_class = PanelSerializer
+
+    def list(self, request):
+        queryset = Panel.objects.all().order_by('date')
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+class CommentViewSiet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
