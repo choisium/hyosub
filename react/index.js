@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Sentence from './Sentence'
 
 var home = document.getElementById("home");
 
@@ -9,6 +10,7 @@ class Home extends React.Component {
       <div>
         <p>Hello, World!</p>
         <p>I'm hyosub!</p>
+        <Sentence/>
       </div>
     )
   }

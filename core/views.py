@@ -17,7 +17,7 @@ class SentenceViewSet(viewsets.ModelViewSet):
     serializer_class = SentenceSerializer
 
     def list(self, request):
-        queryset = Sentence.objects.all()
+        queryset = Sentence.objects.all().order_by('-last_modified')
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
