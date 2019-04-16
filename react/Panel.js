@@ -116,7 +116,7 @@ class Panel extends React.Component {
   };
 
   handleClose() {
-    this.setState({ open: false, selected_now: null });
+    this.setState({ open: false, selected_now: null, name: '', comment: '' });
   };
 
   handleChange(event, state) {
