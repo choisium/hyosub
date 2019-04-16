@@ -4,9 +4,19 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
-    
+  comment: {
+    fontFamily: 'Nunito Sans',
+    fontWeight: 100,
+    color: '#000000',
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 5,
+    marginBottom: 5,
+  },
   });
   
 class Sentence extends React.Component {
@@ -85,32 +95,43 @@ class Sentence extends React.Component {
     const { isLoaded, name, new_sentence, sentences, loading_submit } = this.state;
 
     return (
-      <div>
+      <Grid container style={{width: '100%'}} justify='center'>
+      <Grid container direction='column' justify='center' alignItems='center' style={{maxWidth: '600px'}}>
+        
+        {isLoaded && (
+        sentences.map(sentence => (
+          <Grid container justify='center' alignItems='center' style={{marginBottom: '10px'}}>
+            <Typography className={classes.comment}>{sentence.sentence}</Typography>
+            <Typography className={classes.comment}>- {sentence.name} -</Typography>
+          </Grid>
+        ))
+        )}
+        <Grid container justify='center' alignItems='center'>
         <TextField
           id="name"
           label="이름"
           value={this.state.name}
           onChange={e => this.handleChange(e, 'name')}
           margin="normal"
+          variant='outlined'
+          style={{width: '80px', marginRight: '5px'}}
         />
 
         <TextField
-          id="sentence"
-          label="한마디"
+          id="comment"
+          label="남길 말"
           value={this.state.new_sentence}
           onChange={e => this.handleChange(e, 'new_sentence')}
           margin="normal"
+          variant='outlined'
+          style={{maxWidth: '500px', marginRight: '5px'}}
         />
 
-        <Button onClick={this.handleSubmit} disabled={loading_submit || name == '' || new_sentence == ''}>보내기</Button>
-
-        <p>Sentences</p>
-        {isLoaded && (
-        sentences.map(sentence => (
-          <p>{sentence.name} - {sentence.sentence}</p>
-        ))
-        )}
-      </div>
+        <Button onClick={this.handleSubmit} disabled={loading_submit || name == '' || new_sentence == ''} style={{width: '80px'}}>저장</Button>
+        </Grid>
+        
+      </Grid>
+      </Grid>
     );
   }
 }

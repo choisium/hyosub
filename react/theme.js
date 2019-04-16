@@ -1,6 +1,15 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const breakpointValues = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+};
+
 const hyosub_theme = createMuiTheme({
+  breakpoints: { values: breakpointValues },
   overrides: {
     MuiButton: {
       contained: {
@@ -19,24 +28,63 @@ const hyosub_theme = createMuiTheme({
       root: {
         borderRadius: 0,
         boxShadow: '-0.4px 0.9px 44.1px 4.9px rgba(79, 99, 181, 0.08)',
+        padding: 0,
       },
     },
-    MuiPaper:{
-      elevation2:{
-        boxShadow: '0.7px 0.7px 5.4px 0.6px rgba(119, 120, 124, 0.18) !important',
+    MuiPaper: {
+      root: {
+        borderRadius: 0,
       },
-      rounded:{
-        borderRadius: 6,
-      },
+      rounded: {
+        borderRadius: 0,
+      }
     },
+    MuiDialog: {
+      paperWidthSm: {
+        maxWidth: '400px',
+        margin: '10px auto !important'
+      },
+
+    },
+    MuiTabs: {
+      indicator: {
+        marginBottom: '45px',
+        height: '1px'
+      }
+    },
+    MuiTypography: {
+      root: {
+        fontFamily: 'Nunito Sans',
+        fontWeight: 100,
+        color: '#000000',
+      }
+    },
+    MuiOutlinedInput: {
+      root: {
+      },
+      input: {
+        padding: '8px 14px'
+      }
+    },
+    MuiInputLabel: {
+      outlined: {
+        transform: 'translate(14px, 10px) scale(1)',
+        fontSize: 14,
+      }
+    },
+    MuitFormLabel: {
+      root: {
+        fontSize: 12,
+      }
+    },
+    MuiInputBase: {
+      root: {
+      }
+    }
   },
   palette: {
     primary: {
-      10: '#f2f4ff',
-      50: '#e3e8fb',
-      100: '#8e9dfb',
-      light: '#c8cffa',
-      main: '#4861f8',
+      main: '#000000',
     },
     text: {
       primary: '#636363',

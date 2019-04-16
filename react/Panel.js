@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import compose from 'recompose/compose';
+import withWidth from '@material-ui/core/withWidth';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +14,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   image: {
@@ -27,7 +30,28 @@ const styles = theme => ({
   card: {
     width: '100%',
     paddingTop: '100%',
-  }
+  },
+  card2: {
+    objectFit: 'cover',
+  },
+  image: {
+    width: '100%',
+    height: 'auto',
+  },
+  comment: {
+    fontFamily: 'Nunito Sans',
+    fontWeight: 100,
+    color: '#000000',
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  description: {
+    fontFamily: 'Nunito Sans',
+    fontWeight: 500,
+    color: '#000000',
+  },
   });
   
 class Panel extends React.Component {
@@ -126,7 +150,6 @@ class Panel extends React.Component {
   handleSubmit() {
     const { name, comment, selected_now } = this.state;
     this.setState({ loading_submit: true });
-
     $.ajax({
       method: "POST",
       url: "/api/comments/",
@@ -152,22 +175,31 @@ class Panel extends React.Component {
 
 
   render() {
-    const { classes } = this.props;
+    const { classes, width } = this.props;
     const { isLoaded, selected_now, selected_comments, panels, loading_submit, name, comment, isCommentsLoaded } = this.state;
-
     return (
       <div>
         {/*  */}
-        <Grid container spacing={32}>
+        <Grid container spacing={width=='xs' || width=='sm'? 8 : 32}>
           {isLoaded && (
           panels.map(panel => (
             <Grid item xs={4}>
-              <Card onClick={() => this.handleClickOpen(panel.pk)}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.card}
-                    image={panel.image}
-                  />
+              <Card style={{height: '100%'}} onClick={() => this.handleClickOpen(panel.pk)}>
+                <CardActionArea style={{height: '100%'}}>
+                  { ! panel.is_video &&
+                    <CardMedia
+                      className={classes.card}
+                      image={panel.image}
+                    />
+                  }{ panel.is_video &&
+                    // <source src={panel.image} type="video/mp4"></source>
+                    <CardMedia
+                      style={{height: '100%'}}
+                      className={classes.card2}
+                      image={panel.image}
+                      component="video"
+                    />
+                  }
                 </CardActionArea>
               </Card>
             </Grid>
@@ -182,13 +214,26 @@ class Panel extends React.Component {
             scroll='body'
             aria-labelledby="scroll-dialog-title"
           >
-            <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-            <DialogContent>
-              <img src={selected_now.image}></img>
-              <p>{selected_now.description}</p>
-              <br/>
+            <DialogContent style={{padding:0,}}>
+              { ! selected_now.is_video &&
+              <img src={selected_now.image} className={classes.image}/>
+              }
+              { selected_now.is_video &&
+              <video controls="controls" data-setup="{}" className={classes.image}>
+                <source src={selected_now.image} type="video/mp4" className={classes.image}/>
+              </video>
+              }
+              {/* <p>{selected_now.description}</p><br/> */}
+              <Grid style={{margin: '10px 0px'}} container alignItems='center'>
+              <Grid style={{fontSize: 24, marginLeft: 10}}>
+                <i style={{color: 'rgb(220, 86, 91)', marginRight: 16}} className={"fas fa-heart"}></i>
+              </Grid>
+              <Grid>
+                <Typography className={classes.description}>{selected_now.description}</Typography>
+              </Grid>
+              </Grid>
               {isCommentsLoaded && (selected_comments.map(comment => (
-                <p>{comment.name} - {comment.comment}</p>
+                <Typography className={classes.comment}>{comment.name} - {comment.comment}</Typography>
               )))}
             </DialogContent>
             <DialogActions>
@@ -198,6 +243,8 @@ class Panel extends React.Component {
                 value={this.state.name}
                 onChange={e => this.handleChange(e, 'name')}
                 margin="normal"
+                variant='outlined'
+                style={{width: '80px'}}
               />
 
               <TextField
@@ -206,16 +253,18 @@ class Panel extends React.Component {
                 value={this.state.comment}
                 onChange={e => this.handleChange(e, 'comment')}
                 margin="normal"
+                variant='outlined'
+                style={{maxWidth: '300px'}}
               />
 
-              <Button onClick={this.handleSubmit} disabled={loading_submit || name == '' || comment == ''}>저장</Button>
+              <Button onClick={this.handleSubmit} disabled={loading_submit || name == '' || comment == ''} style={{width: '80px'}}>저장</Button>
 
-              <Button onClick={this.handleClose} color="primary">
+              {/* <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
               <Button onClick={this.handleClose} color="primary">
                 Subscribe
-              </Button>
+              </Button> */}
             </DialogActions>
           </Dialog>
         }
@@ -228,4 +277,4 @@ Panel.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, {withTheme: true})(Panel);
+export default compose(withStyles(styles, {withTheme: true}), withWidth())(Panel);
