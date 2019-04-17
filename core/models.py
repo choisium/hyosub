@@ -18,7 +18,7 @@ class Panel(models.Model):
     is_video = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.date) + " - " + self.description
+        return str(self.image) + " : " + str(self.date) + " - " + self.description
 
 class Comment(models.Model):
     panel = models.ForeignKey(Panel, related_name='comments', on_delete=models.CASCADE)

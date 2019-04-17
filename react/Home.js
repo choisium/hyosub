@@ -56,7 +56,7 @@ const styles = theme => ({
     }
   },
   invisible: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     }
   },
@@ -94,6 +94,10 @@ const styles = theme => ({
   baseMargin: {
     marginTop: theme.spacing.unit * 5,
     marginBottom: theme.spacing.unit * 5,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit * 3,
+    }
   }
 });
   
@@ -118,7 +122,7 @@ class Home extends React.Component {
 
     return (
       <Grid container alignItems='center' style={{maxWidth: '900px'}}>
-        <Grid item xs={12} container direction='row' alignItems='center' justify={width == 'sm' || width == 'xs' ? 'space-between' : 'flex-start'}>
+        <Grid item xs={12} container direction='row' alignItems='center' justify={width == 'xs' ? 'space-between' : 'flex-start'}>
           <Grid container style={{width: 'fit-content'}}>
             <div className={classes.icon}>
               <i className={"fab fa-instagram"}></i>
@@ -153,20 +157,22 @@ class Home extends React.Component {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} className={classes.visible} container direction='row' alignItems='center'>
+        <Grid item xs={12} className={classNames(classes.visible, classes.baseMargin)} container direction='row' alignItems='center'>
           <Grid item xs={4} container justify='center'>
             <Grid item xs={9} className={classes.profile}></Grid>
           </Grid>
           <Grid item xs={8} container justify='flex-start'>
             <Typography className={classes.typo1}>hyosubrmc</Typography>
-            <Grid item xs={4}>
-              <Typography className={classes.typo2} align='center'>게시물<br/>412</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography className={classes.typo2} align='center'>팔로워<br/>1,565</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography className={classes.typo2} align='center'>팔로우<br/>557</Typography>
+            <Grid container item xs={12}>
+              <Grid item xs={4}>
+                <Typography className={classes.typo2} align='flex-start'>게시물<br/>412</Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography className={classes.typo2} align='flex-start'>팔로워<br/>1,565</Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography className={classes.typo2} align='flex-start'>팔로우<br/>557</Typography>
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
