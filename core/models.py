@@ -10,7 +10,8 @@ class Sentence(models.Model):
         return self.sentence + " - " + self.name
 
 class Panel(models.Model):
-    image = models.FileField()
+    image = models.FileField(null=True, blank=True)
+    video = models.CharField(max_length=300, null=True, blank=True)
     date = models.DateTimeField()
     description = models.CharField(max_length=300)
     like = models.IntegerField(default=0)

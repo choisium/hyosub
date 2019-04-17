@@ -186,20 +186,20 @@ class Panel extends React.Component {
             <Grid item xs={4}>
               <Card style={{height: '100%'}} onClick={() => this.handleClickOpen(panel.pk)}>
                 <CardActionArea style={{height: '100%'}}>
-                  { ! panel.is_video &&
-                    <CardMedia
-                      className={classes.card}
-                      image={panel.image}
-                    />
-                  }{ panel.is_video &&
-                    // <source src={panel.image} type="video/mp4"></source>
-                    <CardMedia
-                      style={{height: '100%'}}
-                      className={classes.card2}
-                      image={panel.image}
-                      component="video"
-                    />
-                  }
+                  {/* { ! panel.is_video && */}
+                  <CardMedia
+                    className={classes.card}
+                    image={panel.image}
+                  />
+                  {/* // }{ panel.is_video &&
+                  //   // <source src={panel.image} type="video/mp4"></source>
+                  //   <CardMedia
+                  //     style={{height: '100%'}}
+                  //     className={classes.card2}
+                  //     image={panel.image}
+                  //     component="video"
+                  //   />
+                  // } */}
                 </CardActionArea>
               </Card>
             </Grid>
@@ -220,7 +220,7 @@ class Panel extends React.Component {
               }
               { selected_now.is_video &&
               <video controls="controls" data-setup="{}" className={classes.image}>
-                <source src={selected_now.image} type="video/mp4" className={classes.image}/>
+                <source src={selected_now.video} type="video/mp4" className={classes.image}/>
               </video>
               }
               {/* <p>{selected_now.description}</p><br/> */}
