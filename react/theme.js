@@ -41,10 +41,14 @@ const hyosub_theme = createMuiTheme({
     },
     MuiDialog: {
       paperWidthSm: {
-        maxWidth: '400px',
+        maxWidth: '500px',
         margin: '10px auto !important'
       },
-
+    },
+    MuiDialogActions: {
+      root: {
+        justifyContent: 'center',
+      }
     },
     MuiTabs: {
       indicator: {
